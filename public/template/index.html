@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title></title>
+ <script type="text/javascript" src="/public/dist/js/angular.min.js"></script>
+ <script type="text/javascript" src="/public/dist/js/angular.route.min.js"></script>
+</head>
+<body ng-app="myApp">
+
+<div ng-include="'/partials/includes/navbar.html'"></div>
+<div ng-view></div>
+
+<script type="text/javascript">
+ var app = angular.module("myApp",["ngRoute"])
+ app.config(function ($routeProvider){
+   $routeProvider
+   .when("/", {
+     templateUrl: "/partials/includes/container.html"
+   })
+ })
+</script>
+</body>
+</html>
