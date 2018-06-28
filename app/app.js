@@ -1,6 +1,6 @@
 'use strict'
 import "babel-polyfill";
-//modules 
+//modules  
 import express from 'express'
 import requirAll from 'require.all'
 import {compose} from 'compose-middleware'
