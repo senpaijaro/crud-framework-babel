@@ -12,10 +12,10 @@ import routes from './application/config/routes'
 const app = express(),
 publicDir = './../public'
 app.set('views',__dirname + publicDir+ '/template')
-app.use('/public', express.static(__dirname + publicDir+'/plugins'));
-app.use('/partials', express.static(__dirname + publicDir+'/template'));
+app.use('/public', express.static(__dirname + publicDir+'/plugins'))
+app.use('/partials', express.static(__dirname + publicDir+'/template/includes')),
+app.use('/view', express.static(__dirname + publicDir+'/template'))
 app.engine('html', require('ejs').renderFile)
-// app.set('view engine', 'ejs')
 
 let controllers = requirAll({
 	dir: './application/controller', //only files that end with 'controller.js' 

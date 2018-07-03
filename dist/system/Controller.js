@@ -68,6 +68,39 @@ var Controller = function () {
 
 			return view;
 		}()
+	}, {
+		key: 'send',
+		value: function () {
+			var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(res) {
+				var json = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+				return _regenerator2.default.wrap(function _callee2$(_context2) {
+					while (1) {
+						switch (_context2.prev = _context2.next) {
+							case 0:
+								if (!(json != null)) {
+									_context2.next = 2;
+									break;
+								}
+
+								return _context2.abrupt('return', res.send(json));
+
+							case 2:
+								res.end('NO JSON request');
+
+							case 3:
+							case 'end':
+								return _context2.stop();
+						}
+					}
+				}, _callee2, this);
+			}));
+
+			function send(_x4) {
+				return _ref2.apply(this, arguments);
+			}
+
+			return send;
+		}()
 	}]);
 	return Controller;
 }();

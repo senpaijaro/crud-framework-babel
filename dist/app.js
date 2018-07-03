@@ -26,13 +26,12 @@ var app = (0, _express2.default)(),
     publicDir = './../public';
 //files
 
-//modules
+//modules  
 
 app.set('views', __dirname + publicDir + '/template');
 app.use('/public', _express2.default.static(__dirname + publicDir + '/plugins'));
-app.use('/partials', _express2.default.static(__dirname + publicDir + '/template'));
+app.use('/partials', _express2.default.static(__dirname + publicDir + '/template/includes')), app.use('/view', _express2.default.static(__dirname + publicDir + '/template'));
 app.engine('html', require('ejs').renderFile);
-// app.set('view engine', 'ejs')
 
 var controllers = (0, _require2.default)({
 	dir: './application/controller', //only files that end with 'controller.js' 
