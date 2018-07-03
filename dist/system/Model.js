@@ -36,6 +36,10 @@ var _lodash = require('lodash');
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _trim = require('trim');
+
+var _trim2 = _interopRequireDefault(_trim);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Model = function (_Database) {
@@ -45,7 +49,6 @@ var Model = function (_Database) {
 		(0, _classCallCheck3.default)(this, Model);
 		return (0, _possibleConstructorReturn3.default)(this, (Model.__proto__ || (0, _getPrototypeOf2.default)(Model)).call(this));
 	}
-
 	/**
  	@param connection string 
  	@param table string 
@@ -75,7 +78,7 @@ var Model = function (_Database) {
 								_context.next = 4;
 								return _lodash2.default.each(where, function (values, fields) {
 									field.push(fields + ' = ?');
-									value.push(values);
+									value.push((0, _trim2.default)(values.toString()));
 								});
 
 							case 4:
@@ -124,7 +127,7 @@ var Model = function (_Database) {
 								return _lodash2.default.each(data, function (val, fld) {
 									field.push(fld);
 									setVal.push('?');
-									values.push(val);
+									values.push((0, _trim2.default)(val.toString()));
 								});
 
 							case 3:
@@ -176,7 +179,7 @@ var Model = function (_Database) {
 								_context3.next = 5;
 								return _lodash2.default.each(condition, function (val, fld) {
 									where.push(fld + ' = ?');
-									values.push(val);
+									values.push((0, _trim2.default)(val.toString()));
 								});
 
 							case 5:
@@ -201,6 +204,12 @@ var Model = function (_Database) {
 
 			return update;
 		}()
+		/**
+  	@param connection string 
+  	@param sql string 
+  	@param values array 
+  */
+
 	}, {
 		key: 'query',
 		value: function () {
@@ -235,7 +244,7 @@ var Model = function (_Database) {
 		value: function () {
 			var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(connection, sql) {
 				var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-				var conn;
+				var conn, res;
 				return _regenerator2.default.wrap(function _callee5$(_context5) {
 					while (1) {
 						switch (_context5.prev = _context5.next) {
@@ -248,40 +257,43 @@ var Model = function (_Database) {
 								conn = _context5.sent;
 
 								if (!(value == null)) {
-									_context5.next = 10;
+									_context5.next = 12;
 									break;
 								}
 
 								_context5.next = 7;
-								return conn.queryAsync(sql);
+								return conn[0].queryAsync(sql);
 
 							case 7:
-								return _context5.abrupt('return', _context5.sent);
-
-							case 10:
-								_context5.next = 12;
-								return conn.queryAsync(sql, value);
+								res = _context5.sent;
+								//mssql
+								conn[1].close();
+								return _context5.abrupt('return', res);
 
 							case 12:
+								_context5.next = 14;
+								return conn.queryAsync(sql, value);
+
+							case 14:
 								return _context5.abrupt('return', _context5.sent);
 
-							case 13:
-								_context5.next = 19;
+							case 15:
+								_context5.next = 21;
 								break;
 
-							case 15:
-								_context5.prev = 15;
+							case 17:
+								_context5.prev = 17;
 								_context5.t0 = _context5['catch'](0);
 
 								console.log(_context5.t0);
 								return _context5.abrupt('return', false);
 
-							case 19:
+							case 21:
 							case 'end':
 								return _context5.stop();
 						}
 					}
-				}, _callee5, this, [[0, 15]]);
+				}, _callee5, this, [[0, 17]]);
 			}));
 
 			function execute(_x16, _x17) {

@@ -28,6 +28,10 @@ var _mssql = require('mssql');
 
 var _mssql2 = _interopRequireDefault(_mssql);
 
+var _promise = require('promise');
+
+var _promise2 = _interopRequireDefault(_promise);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Database = function () {
@@ -177,7 +181,7 @@ var Database = function () {
 		key: 'msconnection',
 		value: function () {
 			var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(conn) {
-				var mssql, pool, result;
+				var mssql, pool, request, result;
 				return _regenerator2.default.wrap(function _callee5$(_context5) {
 					while (1) {
 						switch (_context5.prev = _context5.next) {
@@ -192,10 +196,15 @@ var Database = function () {
 								return pool.request();
 
 							case 6:
+								request = _context5.sent;
+								_context5.next = 9;
+								return _promise2.default.all([request, pool]);
+
+							case 9:
 								result = _context5.sent;
 								return _context5.abrupt('return', result);
 
-							case 8:
+							case 11:
 							case 'end':
 								return _context5.stop();
 						}

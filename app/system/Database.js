@@ -2,7 +2,7 @@
 import bluebird from 'bluebird'
 import mysql from 'mysql'
 import sql from 'mssql'
-
+import Promise from 'promise'
 class Database  {
 
 	async connectdb(db=null){
@@ -35,8 +35,8 @@ class Database  {
 	async msconnection(conn){
 		let mssql = bluebird.promisifyAll(sql),
 		pool = await new mssql.ConnectionPool(conn).connect(),
-		result = await pool.request()
-		// await pool.close()
+		request = await pool.request(),
+		result = await Promise.all([request, pool])
 		return result
 	}
 

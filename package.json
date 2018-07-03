@@ -50,6 +50,7 @@
     "mysql": "^2.15.0",
     "nodemon": "^1.17.5",
     "path": "^0.12.7",
+    "promise": "^8.0.1",
     "replace-ext": "^1.0.0",
     "require.all": "^2.0.4",
     "round-precision": "^1.0.0",
