@@ -206,26 +206,35 @@ var Model = function (_Database) {
 		}()
 		/**
   	@param connection string 
-  	@param sql string 
-  	@param values array 
+  	@param table string 
+  	@param condition array 
   */
 
 	}, {
-		key: 'query',
+		key: 'delete',
 		value: function () {
-			var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(connection, sql) {
-				var values = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+			var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(connection, table, condition) {
+				var where, values, sql;
 				return _regenerator2.default.wrap(function _callee4$(_context4) {
 					while (1) {
 						switch (_context4.prev = _context4.next) {
 							case 0:
-								_context4.next = 2;
-								return this.execute(connection, sql, values);
-
-							case 2:
-								return _context4.abrupt('return', _context4.sent);
+								where = [], values = [];
+								_context4.next = 3;
+								return _lodash2.default.each(condition, function (val, fld) {
+									where.push(fld + ' = ?');
+									values.push((0, _trim2.default)(val.toString()));
+								});
 
 							case 3:
+								sql = 'DELETE FROM ' + table + ' WHERE ' + where.join(' AND ');
+								_context4.next = 6;
+								return this.execute(connection, sql, values);
+
+							case 6:
+								return _context4.abrupt('return', _context4.sent);
+
+							case 7:
 							case 'end':
 								return _context4.stop();
 						}
@@ -233,71 +242,112 @@ var Model = function (_Database) {
 				}, _callee4, this);
 			}));
 
-			function query(_x13, _x14) {
+			function _delete(_x13, _x14, _x15) {
 				return _ref4.apply(this, arguments);
 			}
 
-			return query;
+			return _delete;
 		}()
+		/**
+  	@param connection string 
+  	@param sql string 
+  	@param values array 
+  */
+
 	}, {
-		key: 'execute',
+		key: 'query',
 		value: function () {
 			var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(connection, sql) {
-				var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-				var conn, res;
+				var values = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
 				return _regenerator2.default.wrap(function _callee5$(_context5) {
 					while (1) {
 						switch (_context5.prev = _context5.next) {
 							case 0:
-								_context5.prev = 0;
-								_context5.next = 3;
-								return this.connectdb(connection);
+								_context5.next = 2;
+								return this.execute(connection, sql, values);
 
-							case 3:
-								conn = _context5.sent;
-
-								if (!(value == null)) {
-									_context5.next = 12;
-									break;
-								}
-
-								_context5.next = 7;
-								return conn[0].queryAsync(sql);
-
-							case 7:
-								res = _context5.sent;
-								//mssql
-								conn[1].close();
-								return _context5.abrupt('return', res);
-
-							case 12:
-								_context5.next = 14;
-								return conn.queryAsync(sql, value);
-
-							case 14:
+							case 2:
 								return _context5.abrupt('return', _context5.sent);
 
-							case 15:
-								_context5.next = 21;
-								break;
-
-							case 17:
-								_context5.prev = 17;
-								_context5.t0 = _context5['catch'](0);
-
-								console.log(_context5.t0);
-								return _context5.abrupt('return', false);
-
-							case 21:
+							case 3:
 							case 'end':
 								return _context5.stop();
 						}
 					}
-				}, _callee5, this, [[0, 17]]);
+				}, _callee5, this);
 			}));
 
-			function execute(_x16, _x17) {
+			function query(_x16, _x17) {
 				return _ref5.apply(this, arguments);
+			}
+
+			return query;
+		}()
+		/**
+  	@param connection string 
+  	@param sql string 
+  	@param value array 
+  */
+
+	}, {
+		key: 'execute',
+		value: function () {
+			var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(connection, sql) {
+				var value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+				var conn, res;
+				return _regenerator2.default.wrap(function _callee6$(_context6) {
+					while (1) {
+						switch (_context6.prev = _context6.next) {
+							case 0:
+								_context6.prev = 0;
+								_context6.next = 3;
+								return this.connectdb(connection);
+
+							case 3:
+								conn = _context6.sent;
+
+								if (!(value == null)) {
+									_context6.next = 12;
+									break;
+								}
+
+								_context6.next = 7;
+								return conn[0].queryAsync(sql);
+
+							case 7:
+								res = _context6.sent;
+								//mssql
+								conn[1].close();
+								return _context6.abrupt('return', res);
+
+							case 12:
+								_context6.next = 14;
+								return conn.queryAsync(sql, value);
+
+							case 14:
+								return _context6.abrupt('return', _context6.sent);
+
+							case 15:
+								_context6.next = 21;
+								break;
+
+							case 17:
+								_context6.prev = 17;
+								_context6.t0 = _context6['catch'](0);
+
+								console.log(_context6.t0);
+								return _context6.abrupt('return', false);
+
+							case 21:
+							case 'end':
+								return _context6.stop();
+						}
+					}
+				}, _callee6, this, [[0, 17]]);
+			}));
+
+			function execute(_x19, _x20) {
+				return _ref6.apply(this, arguments);
 			}
 
 			return execute;
