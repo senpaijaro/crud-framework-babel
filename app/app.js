@@ -47,13 +47,18 @@ _.each(routes, function(value, index){
 			middleware[ind] = policies[val];
 		}
 	});
-
-	middleware.push(controllers[path[0]][path[1]])
-	if(getApi[0] == "GET"){
-		app.get(getApi[1], compose(middleware))
-	}else if (getApi[0] == "POST"){
-		app.post(getApi[1], compose(middleware));
-	}
+	
+	const change = getApi[0]
+	middleware.push(controllers[change][path[1]])
+	app[change.to.toLowerCase()](getApi[1], compose(middleware))
+	/*
+	  You can code this in this way :)
+		if(getApi[0] == "GET"){
+			app.get(getApi[1], compose(middleware))
+		}else if (getApi[0] == "POST"){
+			app.post(getApi[1], compose(middleware));
+		}
+	*/
 })
 
 app.listen(4200, function(){
